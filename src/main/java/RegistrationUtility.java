@@ -4,40 +4,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Utility class responsible for pre-registering faculty members.
- *
- * <p>Implements eager migration — all faculty member accounts are
- * created immediately when registerFacultyMembers() is called.
- * The university provides a CSV file with email and encrypted password.
- */
+
 public class RegistrationUtility {
 
     /** Path to the university-provided faculty members CSV file. */
     private String filePath;
 
-    /**
-     * Constructs a RegistrationUtility with the given file path.
-     *
-     * @param filePath path to the CSV file; must not be null or blank
-     */
+
     public RegistrationUtility(String filePath) {
         assert filePath != null && !filePath.isBlank()
                 : "File path must not be null or blank";
         this.filePath = filePath;
     }
 
-    /**
-     * Reads the CSV file and creates a FacultyMember account for every row.
-     *
-     * <p>This is eager migration — all accounts are created immediately.
-     * The CSV format expected is: email,encryptedPassword
-     * Duplicate emails and malformed rows are skipped with a warning.
-     *
-     * @return a collection of all created FacultyMember accounts
-     */
+
     public Collection<FacultyMember> registerFacultyMembers() {
-        assert filePath != null : "File path must not be null";
+        assert filePath != null : "Fcant be empty";
 
         Collection<FacultyMember> members = new ArrayList<>();
 
@@ -62,7 +44,7 @@ public class RegistrationUtility {
 
                 String[] parts = line.split(",", 2);
                 if (parts.length < 2) {
-                    System.out.println("Warning: skipping malformed row: "
+                    System.out.println("Warning"
                             + line);
                     continue;
                 }
@@ -71,7 +53,7 @@ public class RegistrationUtility {
                 String password = parts[1].trim();
 
                 if (email.isEmpty() || password.isEmpty()) {
-                    System.out.println("Warning: skipping row with empty "
+                    System.out.println("Warning"
                             + "field: " + line);
                     continue;
                 }
@@ -80,7 +62,7 @@ public class RegistrationUtility {
                 boolean duplicate = false;
                 for (FacultyMember existing : members) {
                     if (existing.getEmail().equals(email)) {
-                        System.out.println("Warning: duplicate email "
+                        System.out.println("bad "
                                 + "skipped: " + email);
                         duplicate = true;
                         break;
