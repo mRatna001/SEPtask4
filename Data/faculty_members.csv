@@ -1,0 +1,4 @@
+email,encryptedPassword
+alice@uni.ac.uk,$2a$10$hashedAlice
+bob@uni.ac.uk,$2a$10$hashedBob
+carol@uni.ac.uk,$2a$10$hashedCarol
