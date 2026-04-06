@@ -1,7 +1,7 @@
 /**
- * Abstract class representing a generic user of the system.
+ * Abstract class a generic user of the system.
  *
- * <p>Stores the core login credentials shared by all user types.
+ * <p>Stores the default login credentials shared by all user types.
  */
 public abstract class User {
 
@@ -12,22 +12,23 @@ public abstract class User {
     private String password;
 
     /**
-     * Constructs a User with the given email and password.
+     * Constructs a User with email and password.
      *
-     * @param email    the user's email; must not be null or blank
-     * @param password the user's password; must not be null or blank
+     * @param email    the user's email
+     *
+     * @param password the user's password
      */
     public User(String email, String password) {
         assert email != null && !email.isBlank()
-                : "Email must not be null or blank";
+                : "Empty Please enter an email";
         assert password != null && !password.isBlank()
-                : "Password must not be null or blank";
+                : "Empty Please enter a password";
         this.email = email;
         this.password = password;
     }
 
     /**
-     * Returns the user's email address.
+     * Returns the email address.
      *
      * @return the email
      */
@@ -45,11 +46,11 @@ public abstract class User {
     /**
      * Sets the user's password.
      *
-     * @param password the new password; must not be null or blank
+     * @param password the new password
      */
     public void setPassword(String password) {
         assert password != null && !password.isBlank()
-                : "Password must not be null or blank";
+                : "Empty Please enter a password";
         this.password = password;
     }
 }

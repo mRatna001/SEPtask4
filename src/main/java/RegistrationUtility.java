@@ -4,22 +4,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
+//Class to read file and create Faculty Member accounts
+//Eager migration creates all account immediately
 public class RegistrationUtility {
 
-    /** Path to the university-provided faculty members CSV file. */
+    /** Path to the faculty members CSV file. */
     private String filePath;
 
-
+    //constructor takes file path as input stores it assert used to check null
     public RegistrationUtility(String filePath) {
         assert filePath != null && !filePath.isBlank()
                 : "File path must not be null or blank";
         this.filePath = filePath;
     }
 
-
+    //Creates accounts
     public Collection<FacultyMember> registerFacultyMembers() {
-        assert filePath != null : "Fcant be empty";
+        assert filePath != null : "Cannot be empty";
 
         Collection<FacultyMember> members = new ArrayList<>();
 
@@ -53,8 +54,7 @@ public class RegistrationUtility {
                 String password = parts[1].trim();
 
                 if (email.isEmpty() || password.isEmpty()) {
-                    System.out.println("Warning"
-                            + "field: " + line);
+                    System.out.println(" Empty Email or Password" + line);
                     continue;
                 }
 
@@ -62,8 +62,7 @@ public class RegistrationUtility {
                 boolean duplicate = false;
                 for (FacultyMember existing : members) {
                     if (existing.getEmail().equals(email)) {
-                        System.out.println("bad "
-                                + "skipped: " + email);
+                        System.out.println("A duplicate email was found " + email);
                         duplicate = true;
                         break;
                     }
@@ -78,8 +77,8 @@ public class RegistrationUtility {
                     + members.size() + " faculty accounts created.");
 
         } catch (IOException e) {
-            System.out.println("Warning: could not read file at '"
-                    + filePath + "'.");
+            System.out.println("Could not read file at"
+                    + filePath );
         }
 
         return members;
@@ -87,7 +86,6 @@ public class RegistrationUtility {
 
     /**
      * Returns the file path this utility reads from.
-     *
      * @return the file path
      */
     public String getFilePath() {

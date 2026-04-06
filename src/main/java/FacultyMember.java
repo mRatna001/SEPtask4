@@ -1,7 +1,7 @@
 
 public class FacultyMember extends User {
 
-    /** The number of times this faculty member has logged in. */
+    /** Tracks how many times a person has logged in*/
     private int loginAttempts;
 
 
@@ -11,8 +11,6 @@ public class FacultyMember extends User {
     }
 
     /**
-     * Returns the number of login attempts made by this faculty member.
-     *
      * @return the login attempt count
      */
     public int getLoginAttempts() {
