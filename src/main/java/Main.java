@@ -2,7 +2,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Mock data simulating the university CSV file
+        // file path to csv
         String mockFilePath = "data/faculty_members.csv";
 
         RegistrationUtility utility =

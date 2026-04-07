@@ -17,7 +17,7 @@ public class TestFacultyMember {
      */
     @BeforeEach
     void setUp() {
-        member = new FacultyMember("alice@uni.ac.uk", "$2a$10$hashedAlice");
+        member = new FacultyMember("edward@forks.edu", "$278584gibvgGJ");
     }
 
     /**
@@ -25,7 +25,7 @@ public class TestFacultyMember {
      */
     @Test
     void testGetEmailReturnsCorrectEmail() {
-        assertEquals("alice@uni.ac.uk", member.getEmail(),
+        assertEquals("edward@forks.edu", member.getEmail(),
                 "Email should match what was passed to constructor");
     }
 
@@ -34,7 +34,7 @@ public class TestFacultyMember {
      */
     @Test
     void testGetPasswordReturnsCorrectPassword() {
-        assertEquals("$2a$10$hashedAlice", member.getPassword(),
+        assertEquals("$278584gibvgGJ", member.getPassword(),
                 "Password should match what was passed to constructor");
     }
 
@@ -93,8 +93,8 @@ public class TestFacultyMember {
      */
     @Test
     void testSetPasswordUpdatesPassword() {
-        member.setPassword("newpassword123");
-        assertEquals("newpassword123", member.getPassword(),
+        member.setPassword("BellaSwan1!");
+        assertEquals("BellaSwan1!", member.getPassword(),
                 "Password should be updated after setPassword is called");
     }
 
@@ -103,8 +103,8 @@ public class TestFacultyMember {
      */
     @Test
     void testSetPasswordDoesNotChangeEmail() {
-        member.setPassword("newpassword123");
-        assertEquals("alice@uni.ac.uk", member.getEmail(),
+        member.setPassword("BellaSwan1!");
+        assertEquals("edward@forks.edu", member.getEmail(),
                 "Email should remain unchanged after setPassword");
     }
 
@@ -113,7 +113,7 @@ public class TestFacultyMember {
      */
     @Test
     void testToStringContainsEmail() {
-        assertTrue(member.toString().contains("alice@uni.ac.uk"),
+        assertTrue(member.toString().contains("edward@forks.edu"),
                 "toString should contain the faculty member's email");
     }
 
@@ -132,9 +132,9 @@ public class TestFacultyMember {
     @Test
     void testTwoMembersAreIndependent() {
         FacultyMember other = new FacultyMember(
-                "bob@uni.ac.uk", "$2a$10$hashedBob");
+                "jacob@lapush.edu", "$2acvhjASDFG");
         other.incrementLoginAttempts();
         assertEquals(0, member.getLoginAttempts(),
-                "Incrementing one member's attempts should not affect another");
+                "Incrementing Jacob's attempts should not affect Edward's");
     }
 }

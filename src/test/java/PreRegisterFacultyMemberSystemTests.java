@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * System-level tests for the Pre-register Faculty Members use case.
  *
  * <p>Tests cover eager migration from CSV, correct account creation,
- * duplicate handling,row handling, and empty file handling.
+ * duplicate handling, row handling, and empty file handling.
  * A mock CSV file is used to simulate the university-provided faculty data.
  */
 public class PreRegisterFacultyMemberSystemTests {
@@ -49,8 +49,8 @@ public class PreRegisterFacultyMemberSystemTests {
     void testEagerMigrationCreatesAllAccounts() throws IOException {
         writeCsv(
                 "email,encryptedPassword",
-                "alice@uni.ac.uk,$2a$10$hashedAlice",
-                "bob@uni.ac.uk,$2a$10$hashedBob"
+                "bea@beabadoobee.ac.uk,Password1!",
+                "victoria@beachhouse.ac.uk,Password1!"
         );
 
         RegistrationUtility utility = new RegistrationUtility(
@@ -69,7 +69,7 @@ public class PreRegisterFacultyMemberSystemTests {
     void testEagerMigrationStoresCorrectEmail() throws IOException {
         writeCsv(
                 "email,encryptedPassword",
-                "alice@uni.ac.uk,$2a$10$hashedAlice"
+                "bea@beabadoobee.ac.uk,Password1!"
         );
 
         RegistrationUtility utility = new RegistrationUtility(
@@ -77,7 +77,7 @@ public class PreRegisterFacultyMemberSystemTests {
         Collection<FacultyMember> members =
                 utility.registerFacultyMembers();
 
-        assertEquals("alice@uni.ac.uk",
+        assertEquals("bea@beabadoobee.ac.uk",
                 members.iterator().next().getEmail(),
                 "Migrated faculty member should have the correct email");
     }
@@ -90,7 +90,7 @@ public class PreRegisterFacultyMemberSystemTests {
             throws IOException {
         writeCsv(
                 "email,encryptedPassword",
-                "alice@uni.ac.uk,$2a$10$hashedAlice"
+                "bea@beabadoobee.ac.uk,Password1!"
         );
 
         RegistrationUtility utility = new RegistrationUtility(
@@ -126,8 +126,8 @@ public class PreRegisterFacultyMemberSystemTests {
     void testEagerMigrationSkipsDuplicateEmails() throws IOException {
         writeCsv(
                 "email,encryptedPassword",
-                "alice@uni.ac.uk,$2a$10$hashedAlice",
-                "alice@uni.ac.uk,$2a$10$differentHash"
+                "bea@beabadoobee.ac.uk,Password1!",
+                "bea@beabadoobee.ac.uk,takeAb1ite!!"
         );
 
         RegistrationUtility utility = new RegistrationUtility(
@@ -146,7 +146,7 @@ public class PreRegisterFacultyMemberSystemTests {
     void testEagerMigrationSkipsMalformedRows() throws IOException {
         writeCsv(
                 "email,encryptedPassword",
-                "alice@uni.ac.uk,$2a$10$hashedAlice",
+                "bea@beabadoobee.ac.uk,Password1!",
                 "badrow"
         );
 
@@ -166,9 +166,9 @@ public class PreRegisterFacultyMemberSystemTests {
     void testEagerMigrationWithMultipleAccounts() throws IOException {
         writeCsv(
                 "email,encryptedPassword",
-                "alice@uni.ac.uk,$2a$10$hashedAlice",
-                "bob@uni.ac.uk,$2a$10$hashedBob",
-                "carol@uni.ac.uk,$2a$10$hashedCarol"
+                "bea@beabadoobee.ac.uk,Password1!",
+                "victoria@beachhouse.ac.uk,Password1!",
+                "alex@beachhouse.ac.uk,takeAb1ite!!"
         );
 
         RegistrationUtility utility = new RegistrationUtility(
@@ -179,7 +179,7 @@ public class PreRegisterFacultyMemberSystemTests {
         assertEquals(3, members.size(),
                 "All three faculty members in the CSV should be created");
     }
-    
+
     /**
      * Tests that a migrated faculty member starts with isFirstLogin true.
      */
@@ -187,7 +187,7 @@ public class PreRegisterFacultyMemberSystemTests {
     void testMigratedMemberHasFirstLoginTrue() throws IOException {
         writeCsv(
                 "email,encryptedPassword",
-                "alice@uni.ac.uk,$2a$10$hashedAlice"
+                "bea@beabadoobee.ac.uk,Password1!"
         );
 
         RegistrationUtility utility = new RegistrationUtility(
@@ -206,7 +206,7 @@ public class PreRegisterFacultyMemberSystemTests {
     void testFirstLoginFalseAfterLoginAttempt() throws IOException {
         writeCsv(
                 "email,encryptedPassword",
-                "alice@uni.ac.uk,$2a$10$hashedAlice"
+                "bea@beabadoobee.ac.uk,Password1!"
         );
 
         RegistrationUtility utility = new RegistrationUtility(
@@ -228,7 +228,7 @@ public class PreRegisterFacultyMemberSystemTests {
     void testMigratedMemberPasswordCanBeChanged() throws IOException {
         writeCsv(
                 "email,encryptedPassword",
-                "alice@uni.ac.uk,$2a$10$hashedAlice"
+                "bea@beabadoobee.ac.uk,Password1!"
         );
 
         RegistrationUtility utility = new RegistrationUtility(
@@ -237,9 +237,9 @@ public class PreRegisterFacultyMemberSystemTests {
                 utility.registerFacultyMembers();
 
         FacultyMember member = members.iterator().next();
-        member.setPassword("mynewpassword");
+        member.setPassword("takeAb1ite!!");
 
-        assertEquals("mynewpassword", member.getPassword(),
+        assertEquals("takeAb1ite!!", member.getPassword(),
                 "Faculty member password should be able to update after migration");
     }
 }
